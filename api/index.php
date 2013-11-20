@@ -155,7 +155,7 @@ function getProfile(){
 		$pdo = new PDO("mysql:host=localhost;dbname=court_watch", "root", "root");
 		$stmt = $pdo->prepare($sql);
 		$stmt->execute();
-		$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$data = $stmt->fetch(PDO::FETCH_ASSOC);
 		echo json_encode($data);		
 	}catch(PDOExecption $e){
 		$error = array("error"=> array("text"=>$e->getMessage()));

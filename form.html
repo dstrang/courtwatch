@@ -1,0 +1,83 @@
+<!doctype html>
+ 
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>jQuery UI Accordion - Default functionality</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script>
+  $(function() {
+    $( "#accordion" ).accordion({
+    	heightStyle: 'content',
+    	active: 0  //determines which section is open by default
+    });
+  });
+  </script>
+
+  <style type="text/css">
+
+  #accordion {
+  	width: 960px;
+  	margin: 0 auto;
+  }
+
+  </style>
+
+</head>
+<body>
+ 
+	<form>
+		<div id="accordion">
+
+				
+				  <h3>Section 1</h3>
+				  <div>
+				  		Case Short Title: <input type="text" /><br />
+				  		Case Number: <input type="text" />
+				  </div>
+				  <h3>Issues / Litigation</h3>
+				  <div>
+
+				  </div>
+				  <h3>Child Custody / Visitation / Child Support Orders</h3>
+				  <div>
+
+				  </div>
+				  <h3>Due Process / Constitutional Rights</h3>
+				  <div>
+				    
+				  </div>
+				  <h3>Judicial Conduct / Demeanor</h3>
+				  <div>
+				    
+				  </div>
+				  <h3>Impressions</h3>
+				  <div>
+				    
+				  </div>
+				  <h3>Accomodations</h3>
+				  <div>
+				    
+				  </div>
+				  <h3>Domestic Violence</h3>
+				  <div>
+				    
+				  </div>
+				  <h3>Child Abuse</h3>
+				  <div>
+				    
+				  </div>
+				  <h3>Child's Input</h3>
+				  <div>
+				    
+				  </div>
+
+			
+
+		</div>
+ 	</form>
+ 
+</body>
+</html>

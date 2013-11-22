@@ -1,20 +1,16 @@
 var VolunteerView = Backbone.Marionette.ItemView.extend({
 	el: '#container',
 	initialize: function(){
+		var view = this;
 		$.ajax({
 			url:'api/getVolunteers',
 			type:'GET',
 			dataType: 'json',
 			success:function(data){
-				var appVolunteers = new Collection(data);
-				var list = new Volunteers({collection: appVolunteers});
-				region.show(list);
-				$('#volunteerAccordion').accordion({
-					collapsible: true,
-					heightStyle: "content",
-					active: false,
-					animate: "easeOutExpo"
-				});
+				if(!data.error){
+					appVolunteers = new Collection(data);
+					view.showAccordion();
+				}
 			}
 		});
 	},
@@ -31,14 +27,25 @@ var VolunteerView = Backbone.Marionette.ItemView.extend({
 		if(!$.trim(formValues.username)){
 			alert("must provide user ID");
 		}else{
+			var view = this;
 			$.ajax({
 				url:url,
 				type:'POST',
 				dataType: 'json',
 				data:formValues,
 				success:function(data){
-					appVolunteers.add(data);
-					$('#volunteerAccordion').accordion('refresh');
+					if(data.error){
+						$('.login-error').text(data.error.text).show();
+					}else{
+						if(typeof appVolunteers != "undefined"){
+							appVolunteers.add(data);
+						}else{
+							appVolunteers = new Collection(data);
+							view.showAccordion();
+						}
+						$('.login-error').fadeOut();
+						$('#volunteerAccordion').accordion('refresh');
+					}
 				},
 				error:function(data){
 					console.log(data);
@@ -62,8 +69,20 @@ var VolunteerView = Backbone.Marionette.ItemView.extend({
 				alert("There was an error connecting to the database. Please try again later.");
 			}
 		});
+	},
+	showAccordion: function(){
+		var list = new Volunteers({collection: appVolunteers});
+		region.show(list);
+		$('#volunteerAccordion').accordion({
+			collapsible: true,
+			heightStyle: "content",
+			active: false,
+			animate: "easeOutExpo"
+		});
 	}
 });
+
+var appVolunteers;
 
 var region = new Backbone.Marionette.Region({
   el: "#volunteerList"

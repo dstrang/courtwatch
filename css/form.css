@@ -1,3 +1,20 @@
 #accordion {
 	width:800px;
 }
+
+#formAccordion label{
+	font-weight: normal;
+	text-align: right;
+}
+
+
+
+#formAccordion div > div {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.panel {
+	display:block;
+	padding-left: 10px;
+}

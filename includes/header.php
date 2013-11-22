@@ -24,6 +24,7 @@ if(!isset($_SESSION['user'])){
     <link href="css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <!-- Custom styles for this template -->
+    <link href="css/form.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->

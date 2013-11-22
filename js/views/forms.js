@@ -7,7 +7,7 @@ var FormView = Backbone.Marionette.ItemView.extend({
 		$("#formAccordion").accordion({
 			collapsible: true,
     		heightStyle: 'content',
-    		active: false,
+    		active: 0,
     		animate: 'easeOutExpo'
    		 });
 	},

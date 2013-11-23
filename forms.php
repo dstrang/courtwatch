@@ -12,9 +12,47 @@ require('includes/header.php');
 
                 
                   <h3>Section 1</h3>
-                  <div>
-                        Case Short Title: <input type="text" /><br />
-                        Case Number: <input type="text" />
+                  <div class="panel">
+                        <div class="row">
+                            <p class="col-md-6"><label class="col-md-4">State/County: </label><input type="text" name="stateCounty" /></p>
+                            <p class="col-md-6">Volunteer#: <input type="text" name="volunteerId" /><p>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-12"><label class="col-md-2">Court: </label><textarea rows="4" cols="50"></textarea></p>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-6"><label class="col-md-6">Case Short Title: </label><input type="text" name="caseShortTitle" /></p>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-6"><label class="col-md-6">Case Number: </label><input type="text" name="caseNumber" /></p>
+                            <p class="col-md-6">Department: <input type="text" name="department" /></p>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-6"><label class="col-md-6">Hearing Date: </label><input type="text" name="hearingDate" /></p>
+                            <p class="col-md-6">Hearing Time: <input type="text" name="hearingTime" /></p>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-6"><label class="col-md-6">Judge/Commissioner: </label><input type="text" name="judgeName" /></p>
+                            <div class="col-md-6">
+                                <p class="col-md-3">Male <input type="radio" name="judgeGender" value="male" /></p>
+                                <p class="col-md-3">Female <input type="radio" name="judgeGender" value="female" /></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-6"><label class="col-md-6">Petitioners Name: </label><input type="text" name="petitionerName" /></p>
+                            <div class="col-md-6">
+                                <p class="col-md-3">Male <input type="radio" name="petitionerGender" value="male" /></p>
+                                <p class="col-md-3">Female <input type="radio" name="petitionerGender" value="female" /></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-6"><label class="col-md-6">Respondents Name: </label><input type="text" name="respondentName" /></p>
+                            <div class="col-md-6">
+                                <p class="col-md-3">Male <input type="radio" name="respondentGender" value="male" /></p>
+                                <p class="col-md-3">Female <input type="radio" name="respondentGender" value="female" /></p>
+                            </div>
+                        </div>
+                        
                         <p class="next">next</p>
                   </div>
                   <h3>Issues / Litigation</h3>

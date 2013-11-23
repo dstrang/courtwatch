@@ -8,13 +8,13 @@ require('includes/header.php');
                         <h2 class="form-signin-heading">Add Volunteer</h2>
                         <input type="text" id="username" class="form-control" placeholder="User ID">
                         <button class="btn btn-lg btn-primary btn-block">Add User</button>
+                        <div class="login-error" style="display:none;"></div>
                     </form>
                 </div>
                 <div class="col-md-8">
                     <h2 class="form-signin-heading">Volunteers</h2>
                     <div id="volunteerList">
-                        
-
+                        <p>No Volunteers</p>
                     </div>
                 </div>
             </div>
@@ -24,13 +24,13 @@ require('includes/header.php');
             <div id="volunteerAccordion">
 
             </div>
-
         </script>
 
         <script type="text/template" id="admin-volunteer-template">
             <h3><%= username %></h3>
             <div>
                 <p class="info-left">
+                    Name: <%= name %><br />
                     Phone: <%= phone %><br />
                     Email: <%= email %>
                 </p>

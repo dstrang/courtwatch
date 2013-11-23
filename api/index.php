@@ -25,12 +25,13 @@ function logout(){
 
 function updateProfile(){
 
-	$sql = "UPDATE users SET email = :email, phone = :phone WHERE username = '".$_SESSION['user']['userID']."'";
+	$sql = "UPDATE users SET email = :email, phone = :phone, name = :name WHERE username = '".$_SESSION['user']['userID']."'";
 	try{
 		$pdo = new PDO("mysql:host=localhost;dbname=court_watch", "root", "root");
 		$stmt = $pdo->prepare($sql);
 		$stmt->bindParam(":email", $_POST['email'], PDO::PARAM_STR);
 		$stmt->bindParam(":phone", $_POST['phone'], PDO::PARAM_STR);
+		$stmt->bindParam(":name", $_POST['name'], PDO::PARAM_STR);
 		$stmt->execute();
 		$data = "SUCCESS";
 		echo json_encode($data);
@@ -107,15 +108,24 @@ function login(){
 
 
 function addNewVolunteer(){
-	$sql = "INSERT INTO users VALUES('', :username, '$2a$04$0R15h3jgjxXztf/fvU/5mOZfH75mf0GXzofDXVShKFIKzPAdMf4qS', 'volunteer', '', '')";
+	$sql = "SELECT 1 FROM users WHERE username = :username";
+	
 	try{
 		$pdo = new PDO("mysql:host=localhost;dbname=court_watch", "root", "root");
 		$stmt = $pdo->prepare($sql);
 		$stmt->bindParam(":username", $_POST['username'], PDO::PARAM_STR);
 		$stmt->execute();
-		$data = array("username"=>$_POST['username'], "phone"=>"", "email"=>"");
-		echo json_encode($data);
-		
+		if($stmt->rowCount() > 0){
+			$error = array("error"=> array("text"=>"Volunteer ID already exists."));
+            echo json_encode($error);
+		}else{
+			$sql = "INSERT INTO users VALUES('', :username, '$2a$04$0R15h3jgjxXztf/fvU/5mOZfH75mf0GXzofDXVShKFIKzPAdMf4qS', 'volunteer', '', '', '')";
+			$stmt = $pdo->prepare($sql);
+			$stmt->bindParam(":username", $_POST['username'], PDO::PARAM_STR);
+			$stmt->execute();
+			$data = array("username"=>$_POST['username'], "phone"=>"", "email"=>"", "role"=>"volunteer");
+			echo json_encode($data);
+		}
 	}catch(PDOExecption $e){
 		$error = array("error"=> array("text"=>$e->getMessage()));
         echo json_encode($error);
@@ -132,7 +142,7 @@ function loggedIn(){
 }
 
 function getVolunteers(){
-	$sql = "SELECT username, role, email, phone FROM users WHERE username != '".$_SESSION['user']['userID']."'";
+	$sql = "SELECT username, role, email, phone, name FROM users WHERE username != '".$_SESSION['user']['userID']."'";
 	try{
 		$pdo = new PDO("mysql:host=localhost;dbname=court_watch", "root", "root");
 		$stmt = $pdo->prepare($sql);
@@ -140,7 +150,7 @@ function getVolunteers(){
 		if($stmt->rowCount() >= 1){
 			$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		}else{
-			$data = "No Users";
+			$data = array("error"=> array("text"=>"no volunteers"));
 		}
 		echo json_encode($data);		
 	}catch(PDOExecption $e){
@@ -150,7 +160,7 @@ function getVolunteers(){
 }
 
 function getProfile(){
-	$sql = "SELECT username, role, email, phone FROM users WHERE username = '".$_SESSION['user']['userID']."'";
+	$sql = "SELECT username, role, email, phone, name FROM users WHERE username = '".$_SESSION['user']['userID']."'";
 	try{
 		$pdo = new PDO("mysql:host=localhost;dbname=court_watch", "root", "root");
 		$stmt = $pdo->prepare($sql);

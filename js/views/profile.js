@@ -25,7 +25,8 @@ var ProfileView = Backbone.Marionette.ItemView.extend({
 		}else{
 			var formValues = {
 				email: $('#profileEmail input').val(),
-				phone: $('#profilePhone input').val()
+				phone: $('#profilePhone input').val(),
+				name: $('#profileName input').val()
 			};
 			$.ajax({
 				url:'api/updateProfile',
@@ -34,6 +35,7 @@ var ProfileView = Backbone.Marionette.ItemView.extend({
 				data:formValues,
 				success:function(data){
 					button.text("Edit");
+					$('#profileName span').text(formValues.name);
 					$('#profilePhone span').text(formValues.phone);
 					$('#profileEmail span').text(formValues.email);
 					$('#profilePanel span').toggleClass('hidden');

@@ -7,7 +7,7 @@ require('includes/header.php');
     </div>
 
     <script type="text/template" id="admin-forms-template">
-    	<form>
+    	<form action="formpost.php" method="post">
         	<div id="formAccordion">
 
                 
@@ -21,16 +21,16 @@ require('includes/header.php');
                   <div>
                         What issues were being heard/considered at the hearing?
                         <br /> <br />
-                            divorce <input type="checkbox" name="issues" value="divorce" />
-                            child custody <input type="checkbox" name="issues" value="child_custody" />
-                            child support <input type="checkbox" name="issues" value="child_support" />
+                            divorce <input type="checkbox" name="issues[]" value="divorce" />
+                            child custody <input type="checkbox" name="issues[]" value="child_custody" />
+                            child support <input type="checkbox" name="issues[]" value="child_support" />
                         <br />
-                            child visitation <input type="checkbox" name="issues" value="child_visitation" />
-                            restraining order <input type="checkbox" name="issues" value="restraining_order" />
-                            spousal support <input type="checkbox" name="issues" value="spousal_support" />
+                            child visitation <input type="checkbox" name="issues[]" value="child_visitation" />
+                            restraining order <input type="checkbox" name="issues[]" value="restraining_order" />
+                            spousal support <input type="checkbox" name="issues[]" value="spousal_support" />
                         <br />
-                            contempt <input type="checkbox" name="issues" value="contempt" />
-                            attorney fees <input type="checkbox" name="issues" value="attorney_fees" />
+                            contempt <input type="checkbox" name="issues[]" value="contempt" />
+                            attorney fees <input type="checkbox" name="issues[]" value="attorney_fees" />
                             other (specify) <input type="text" name="other" />
                         <br /> <br />
 
@@ -720,6 +720,7 @@ require('includes/header.php');
             
 
      		</div>
+            <input type="submit" value="submit" />
     	</form>
     </script>
 

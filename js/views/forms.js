@@ -10,10 +10,12 @@ var FormView = Backbone.Marionette.ItemView.extend({
     		active: 0,
     		animate: 'easeOutExpo'
    		 });
+		$('#datePicker').datepicker();
 	},
 	events: {
 		'click .next' : 'nextPage',
-		'click .close' : 'closePage'
+		'click .close' : 'closePage',
+		'click .more' : 'showHidden'
 	},
 	nextPage: function(){
 		var form = $("#formAccordion");
@@ -22,6 +24,9 @@ var FormView = Backbone.Marionette.ItemView.extend({
 	},
 	closePage: function(){
 		$('#formAccordion').accordion('option','active', false);
+	},
+	showHidden: function(event){
+		$(event.currentTarget).closest('.hidden').removeClass('hidden');
 	}
 });
 

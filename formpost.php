@@ -1,6 +1,7 @@
 <table>
 <?php 
 
+    echo $_POST['volunteerId'];
 
     foreach ($_POST as $key => $value) {
         echo "<tr>";

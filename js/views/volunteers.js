@@ -7,6 +7,7 @@ var VolunteerView = Backbone.Marionette.ItemView.extend({
 			type:'GET',
 			dataType: 'json',
 			success:function(data){
+				console.log(data);
 				if(!data.error){
 					appVolunteers = new Collection(data);
 					view.showAccordion();

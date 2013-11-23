@@ -1,0 +1,25 @@
+//name database 'court_watch'
+//username: 'root'
+//password: 'root'
+
+
+
+/*
+
+copy column H from data dictionary
+paste into text editor
+save as foobar.txt
+
+*/
+
+sed '/^$/d' foobar.txt > output.txt
+awk '{print $0 " TINYTEXT,";}' output.txt > output2.txt
+
+
+CREATE TABLE form_data
+(
+
+//place contents of output2.txt here
+//remove last comma
+
+);

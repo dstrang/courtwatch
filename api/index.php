@@ -108,27 +108,31 @@ function login(){
 
 
 function addNewVolunteer(){
-	$sql = "SELECT 1 FROM users WHERE username = :username";
-	
-	try{
-		$pdo = new PDO("mysql:host=localhost;dbname=court_watch", "root", "root");
-		$stmt = $pdo->prepare($sql);
-		$stmt->bindParam(":username", $_POST['username'], PDO::PARAM_STR);
-		$stmt->execute();
-		if($stmt->rowCount() > 0){
-			$error = array("error"=> array("text"=>"Volunteer ID already exists."));
-            echo json_encode($error);
-		}else{
-			$sql = "INSERT INTO users VALUES('', :username, '$2a$04$0R15h3jgjxXztf/fvU/5mOZfH75mf0GXzofDXVShKFIKzPAdMf4qS', 'volunteer', '', '', '')";
+	if(!empty($_POST['username'])){
+		$sql = "SELECT 1 FROM users WHERE username = :username";
+		try{
+			$pdo = new PDO("mysql:host=localhost;dbname=court_watch", "root", "root");
 			$stmt = $pdo->prepare($sql);
 			$stmt->bindParam(":username", $_POST['username'], PDO::PARAM_STR);
 			$stmt->execute();
-			$data = array("username"=>$_POST['username'], "phone"=>"", "email"=>"", "role"=>"volunteer");
-			echo json_encode($data);
+			if($stmt->rowCount() > 0){
+				$error = array("error"=> array("text"=>"Volunteer ID already exists."));
+	            echo json_encode($error);
+			}else{
+				$sql = "INSERT INTO users VALUES('', :username, '$2a$04$0R15h3jgjxXztf/fvU/5mOZfH75mf0GXzofDXVShKFIKzPAdMf4qS', 'volunteer', '', '', '')";
+				$stmt = $pdo->prepare($sql);
+				$stmt->bindParam(":username", $_POST['username'], PDO::PARAM_STR);
+				$stmt->execute();
+				$data = array("username"=>$_POST['username'], "phone"=>"", "email"=>"", "role"=>"volunteer");
+				echo json_encode($data);
+			}
+		}catch(PDOExecption $e){
+			$error = array("error"=> array("text"=>$e->getMessage()));
+	        echo json_encode($error);
 		}
-	}catch(PDOExecption $e){
-		$error = array("error"=> array("text"=>$e->getMessage()));
-        echo json_encode($error);
+	}else{
+		$error = array("error"=> array("text"=>"You must provide a volunteer ID"));
+		echo json_encode($error);
 	}
 }
 

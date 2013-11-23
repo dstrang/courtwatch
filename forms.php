@@ -28,7 +28,7 @@ require('includes/header.php');
                             <p class="col-md-6">Department: <input type="text" name="department" /></p>
                         </div>
                         <div class="row">
-                            <p class="col-md-6"><label class="col-md-6">Hearing Date: </label><input type="text" name="hearingDate" /></p>
+                            <p class="col-md-6"><label class="col-md-6">Hearing Date: </label><input type="text" id="datePicker" name="hearingDate" /></p>
                             <p class="col-md-6">Hearing Time: <input type="text" name="hearingTime" /></p>
                         </div>
                         <div class="row">
@@ -103,9 +103,11 @@ require('includes/header.php');
                             unsupervised visitation to (pet/resp) <input type="checkbox" name="custodyVisitationOrders" value="unsupervised_visitation_to_(pet/resp)" />
                             supervised visitation to (pet/resp) <input type="checkbox" name="custodyVisitationOrders" value="supervised_visitation_to_(pet/resp)" />
                         <br /> <br />
-
-                        Did either party request a change in an existing child custody or visitation (parenting time) order?
-                        <br /> <br />
+                        <div class="row">
+                            <p class="col-md-3">
+                                Did either party request a change in an existing child custody or visitation (parenting time) order?
+                            </p>
+                        </div>
                         Custody:
                             Yes <input type="radio" name="requestChangeCustody" value="yes" />
                             No <input type="radio" name="requestChangeCustody" value="no" />
@@ -438,11 +440,12 @@ require('includes/header.php');
                         
                         Was there any demonstration of favoritism or antagonism toward one of the
                         parties by a judicial official?
-                        Yes <input type="radio" name="favoritism" value="yes" />
+                        Yes <input class="more" type="radio" name="favoritism" value="yes" />
                         No <input type="radio" name="favoritism" value="no" /><br />
-                        If yes, describe:
-                        <input type="text" name ="favoritismDescription"/><br /><br />
-                        
+                        <p class="hidden">
+                            If yes, describe:
+                            <input type="text" name ="favoritismDescription"/><br /><br />
+                        </p>
                         Other Remarks: <input type="text" name="remarks"/>
                         <p class="next">next</p>
                   </div>

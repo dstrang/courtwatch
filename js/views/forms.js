@@ -7,7 +7,7 @@ var FormView = Backbone.Marionette.ItemView.extend({
 		$("#formAccordion").accordion({
 			collapsible: true,
     		heightStyle: 'content',
-    		active: 0,
+    		active: 1,
     		animate: 'easeOutExpo'
    		 });
 		$('#datePicker').datepicker();
@@ -15,7 +15,8 @@ var FormView = Backbone.Marionette.ItemView.extend({
 	events: {
 		'click .next' : 'nextPage',
 		'click .close' : 'closePage',
-		'click .more' : 'showHidden'
+		'click .more' : 'showHidden',
+		'click #fillForm' : 'fillForm'
 	},
 	nextPage: function(){
 		var form = $("#formAccordion");
@@ -27,6 +28,11 @@ var FormView = Backbone.Marionette.ItemView.extend({
 	},
 	showHidden: function(event){
 		$(event.currentTarget).closest('.hidden').removeClass('hidden');
+	},
+	fillForm: function(){
+		$(':text').val("test");
+		$(':radio').prop("checked", true);
+		$(':checkbox').prop("checked", true);
 	}
 });
 

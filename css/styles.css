@@ -204,3 +204,11 @@ body {
 .hidden {
     display:none;
 }
+
+.testright {
+    text-align: right;
+}
+
+.foobar {
+  padding-right: 50px;
+}

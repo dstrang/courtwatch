@@ -1,6 +1,31 @@
-<?php
-require('includes/header.php');
-?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.png">
+
+    <title>CourtWatch</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <!-- Custom styles for this template -->
+    <link href="css/form.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="js/libs/html5shiv.js"></script>
+      <script src="js/libs/respond.min.js"></script>
+    <![endif]-->
+  </head>
+    <body>
+        <div id="top-bar">
+            <p><?php echo $_SESSION['user']['userID'];  ?> |<span>Log Out</span></p>
+        </div>
 
     <div id="container">
         
@@ -58,18 +83,20 @@ require('includes/header.php');
                   <h3>Issues / Litigation</h3>
                   <div>
                         What issues were being heard/considered at the hearing?
-                        <br /> <br />
-                            divorce <input type="checkbox" name="issues[]" value="divorce" />
-                            child custody <input type="checkbox" name="issues[]" value="child_custody" />
-                            child support <input type="checkbox" name="issues[]" value="child_support" />
-                        <br />
-                            child visitation <input type="checkbox" name="issues[]" value="child_visitation" />
-                            restraining order <input type="checkbox" name="issues[]" value="restraining_order" />
-                            spousal support <input type="checkbox" name="issues[]" value="spousal_support" />
-                        <br />
+                        <div class="row foobar">
+                            <p class="col-md-4 testright">divorce <input type="checkbox" name="issues[]" value="divorce" /></p>
+                            <p class="col-md-4 testright">child custody <input type="checkbox" name="issues[]" value="child_custody" /></p>
+                            <p class="col-md-4 testright">child support <input type="checkbox" name="issues[]" value="child_support" /></p>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-4 testright">child visitation <input type="checkbox" name="issues[]" value="child_visitation" /></p>
+                            <p class="col-md-4 testright">restraining order <input type="checkbox" name="issues[]" value="restraining_order" /></p>
+                            <p class="col-md-4 testright">spousal support <input type="checkbox" name="issues[]" value="spousal_support" /></p>
+                        </div>
                             contempt <input type="checkbox" name="issues[]" value="contempt" />
                             attorney fees <input type="checkbox" name="issues[]" value="attorney_fees" />
-                            other (specify) <input type="text" name="other" />
+                            other <input type="checkbox" name="issues[]" value="other" />
+                            (specify) <input type="text" name="issuesOther" />
                         <br /> <br />
 
                         Was the case continued to a future date?
@@ -94,14 +121,14 @@ require('includes/header.php');
                   <div>
                         What child custody/visitation orders were in place prior to the hearing?
                         <br /> <br />
-                            joint physical custody <input type="checkbox" name="custodyVisitationOrders" value="joint_physical_custody" />
-                            joint legal custody <input type="checkbox" name="custodyVisitationOrders" value=" joint_legal_custody" />
+                            joint physical custody <input type="checkbox" name="custodyVisitationOrders[]" value="joint_physical_custody" />
+                            joint legal custody <input type="checkbox" name="custodyVisitationOrders[]" value=" joint_legal_custody" />
                         <br />
-                            legal custody to (pet/resp) <input type="checkbox" name="custodyVisitationOrders" value="legal_custody_to_(pet/resp)" />
-                            physical custody to (pet/resp)<input type="checkbox" name="custodyVisitationOrders" value="physical_custody_to_(pet/resp)" />
+                            legal custody to (pet/resp) <input type="checkbox" name="custodyVisitationOrders[]" value="legal_custody_to_(pet/resp)" />
+                            physical custody to (pet/resp)<input type="checkbox" name="custodyVisitationOrders[]" value="physical_custody_to_(pet/resp)" />
                         <br />
-                            unsupervised visitation to (pet/resp) <input type="checkbox" name="custodyVisitationOrders" value="unsupervised_visitation_to_(pet/resp)" />
-                            supervised visitation to (pet/resp) <input type="checkbox" name="custodyVisitationOrders" value="supervised_visitation_to_(pet/resp)" />
+                            unsupervised visitation to (pet/resp) <input type="checkbox" name="custodyVisitationOrders[]" value="unsupervised_visitation_to_(pet/resp)" />
+                            supervised visitation to (pet/resp) <input type="checkbox" name="custodyVisitationOrders[]" value="supervised_visitation_to_(pet/resp)" />
                         <br /> <br />
                         <div class="row">
                             <p class="col-md-3">
@@ -122,15 +149,15 @@ require('includes/header.php');
 
                         What reason was given for requesting the change in custody/parenting time?
                         <br /> <br />
-                            domestic violence <input type="checkbox" name="reasonForRequest" value="domestic_violence" />
-                            child abuse/neglect <input type="checkbox" name="reasonForRequest" value="child_abuse/neglect" />
-                            relocation <input type="checkbox" name="reasonForRequest" value="relocation" />
+                            domestic violence <input type="checkbox" name="reasonForRequest[]" value="domestic_violence" />
+                            child abuse/neglect <input type="checkbox" name="reasonForRequest[]" value="child_abuse/neglect" />
+                            relocation <input type="checkbox" name="reasonForRequest[]" value="relocation" />
                             <br />
-                            educational issues <input type="checkbox" name="reasonForRequest" value="educational_issues" />
-                            child behavioral issues <input type="checkbox" name="reasonForRequest" value="child_behavioral_issues" />
-                            child's wishes <input type="checkbox" name="reasonForRequest" value="child's_wishes" />
+                            educational issues <input type="checkbox" name="reasonForRequest[]" value="educational_issues" />
+                            child behavioral issues <input type="checkbox" name="reasonForRequest[]" value="child_behavioral_issues" />
+                            child's wishes <input type="checkbox" name="reasonForRequest[]" value="child's_wishes" />
                             <br />
-                            developmental stage of child <input type="checkbox" name="reasonForRequest" value="developmental_stage_of_child" />
+                            developmental stage of child <input type="checkbox" name="reasonForRequest[]" value="developmental_stage_of_child" />
                             other (describe) <input type="text" name="other" />
                             <br /> 
                         Were any changes made in the custody or parenting time orders?
@@ -140,11 +167,11 @@ require('includes/header.php');
 
                         How was the custody order changed?
                         <br /> <br />
-                            sole legal to (Pet/Resp) <input type="checkbox" name="custodyOrdersChanged" value="sole_legal_to_(Pet/Resp)" />
-                            joint legal to (Pet/Resp) <input type="checkbox" name="custodyOrdersChanged" value="joint_legal_to_(Pet/Resp) " />
+                            sole legal to (Pet/Resp) <input type="checkbox" name="custodyOrdersChanged[]" value="sole_legal_to_(Pet/Resp)" />
+                            joint legal to (Pet/Resp) <input type="checkbox" name="custodyOrdersChanged[]" value="joint_legal_to_(Pet/Resp) " />
                         <br />
-                            sole physical to(pet/resp) <input type="checkbox" name="custodyOrdersChanged" value="sole_physical_to_(Pet/Resp)" />
-                            joint physical (equal/primary to Pet/primary to Resp) <input type="checkbox" name="custodyOrdersChanged" value="joint_physical_(equal/primary_to_Pet/primary_to_Resp)" />
+                            sole physical to(pet/resp) <input type="checkbox" name="custodyOrdersChanged[]" value="sole_physical_to_(Pet/Resp)" />
+                            joint physical (equal/primary to Pet/primary to Resp) <input type="checkbox" name="custodyOrdersChanged[]" value="joint_physical_(equal/primary_to_Pet/primary_to_Resp)" />
                         <br /> <br />
 
                         How was the visitation (parenting time) order changed?
@@ -207,13 +234,13 @@ require('includes/header.php');
                         <br /> <br />
                         If yes, who went into chambers for the meeting/discussion?
                         <br />
-                            petitioner's attorney <input type="checkbox" name="whoWentToChambers" value="petitioner's_attorney" />
-                            respondent's attorney <input type="checkbox" name="whoWentToChambers" value="respondent's_attorney" />
-                            child's attorney <input type="checkbox" name="whoWentToChambers" value="child's_attorney" />
+                            petitioner's attorney <input type="checkbox" name="whoWentToChambers[]" value="petitioner's_attorney" />
+                            respondent's attorney <input type="checkbox" name="whoWentToChambers[]" value="respondent's_attorney" />
+                            child's attorney <input type="checkbox" name="whoWentToChambers[]" value="child's_attorney" />
                             <br />
-                            petitioner <input type="checkbox" name="whoWentToChambers" value="petitioner" />
-                            respondent <input type="checkbox" name="whoWentToChambers" value="respondent" />
-                            court reporter <input type="checkbox" name="whoWentToChambers" value="court reporter" />
+                            petitioner <input type="checkbox" name="whoWentToChambers[]" value="petitioner" />
+                            respondent <input type="checkbox" name="whoWentToChambers[]" value="respondent" />
+                            court reporter <input type="checkbox" name="whoWentToChambers[]" value="court reporter" />
                         <br /> <br />
                         If either the petitioner and/or respondent were excluded from the in-chambers meeting/discussion, what reason was given for the exclusion?
                         <br />
@@ -465,8 +492,8 @@ require('includes/header.php');
                         Unknown <input type="radio" name="accommodations" value="unknown" /><br /><br />
                         If yes:<br />
                         Who requested the accommodations?
-                        Petitioner <input type="checkbox" name="accommodationsRequested" value="petitioner" />
-                        Respondent <input type="checkbox" name="accommodationsRequested" value="respondent" />
+                        Petitioner <input type="checkbox" name="accommodationsRequested[]" value="petitioner" />
+                        Respondent <input type="checkbox" name="accommodationsRequested[]" value="respondent" />
                         <br />
                         What accommodations were requested? <input type="text" name="requested"/><br />
                         What accommodations were provided? <input type="text" name="provided"/><br />
@@ -482,9 +509,9 @@ require('includes/header.php');
                         No <input type="radio" name="protectiveOrder" value="no" />
                         Unknown <input type="radio" name="protectiveOrder" value="unknown" /><br />
                         If yes, who was protected?
-                        Petitioner <input type="checkbox" name="protected" value="petitioner" />
-                        Respondent <input type="checkbox" name="protected" value="respondent" />
-                        Child(ren) <input type="checkbox" name="protected" value="children" /><br />
+                        Petitioner <input type="checkbox" name="protected[]" value="petitioner" />
+                        Respondent <input type="checkbox" name="protected[]" value="respondent" />
+                        Child(ren) <input type="checkbox" name="protected[]" value="children" /><br />
                         Was the restrained party seeking to terminate the protective order?
                         Yes <input type="radio" name="terminate" value="yes" />
                         No <input type="radio" name="terminate" value="no" /><br />
@@ -500,11 +527,11 @@ require('includes/header.php');
                         Respondent <input type="radio" name="domesticViolenceAllegation" value="respondent" />
                         Other <input type="radio" name="domesticViolenceAllegation" value="other" /><br />
                         What type of DV was alleged? <br />
-                        Physical <input type="checkbox" name="typeOfDV" value="physical" />
-                        Sexual <input type="checkbox" name="typeOfDV" value="sexual" />
-                        Verbal/Psychological/Threats <input type="checkbox" name="typeOfDV" value="verbal" />
-                        Stalking <input type="checkbox" name="typeOfDV" value="stalking" />
-                        Other <input type="checkbox" name="typeOfDV" value="other" /><br /><br />
+                        Physical <input type="checkbox" name="typeOfDV[]" value="physical" />
+                        Sexual <input type="checkbox" name="typeOfDV[]" value="sexual" />
+                        Verbal/Psychological/Threats <input type="checkbox" name="typeOfDV[]" value="verbal" />
+                        Stalking <input type="checkbox" name="typeOfDV[]" value="stalking" />
+                        Other <input type="checkbox" name="typeOfDV[]" value="other" /><br /><br />
                         
                         Did the party who raised the allegation of DV request a restraining order?
                         Yes <input type="radio" name="restrainingOrder" value="yes" />
@@ -532,10 +559,10 @@ require('includes/header.php');
                         No <input type="radio" name="contactWithAbuser" value="no" /><br />
                         
                         If yes, what were the conditions of the contact?<br />
-                        Mediation <input type="checkbox" name="conditionsOfContact" value="mediation" />
-                        Co-parenting classes <input type="checkbox" name="conditionsOfContact" value="co-parenting" />
-                        Child exchanges <input type="checkbox" name="conditionsOfContact" value="childExchanges" />
-                        Other <input type="checkbox" name="conditionsOfContact" value="other" /><br /><br />
+                        Mediation <input type="checkbox" name="conditionsOfContact[]" value="mediation" />
+                        Co-parenting classes <input type="checkbox" name="conditionsOfContact[]" value="co-parenting" />
+                        Child exchanges <input type="checkbox" name="conditionsOfContact[]" value="childExchanges" />
+                        Other <input type="checkbox" name="conditionsOfContact[]" value="other" /><br /><br />
                         
                         Was party protected or reporting DV accused by the alleged abuser of fabricating, exaggerating, 
                         alienating, or using the allegation for a tactical advantage in the litigation?
@@ -566,11 +593,11 @@ require('includes/header.php');
                         Other <input type="radio" name="childAbuseAllegation" value="other" /><br /><br />
                         
                         What type of child abuse was alleged?<br />
-                        Physical <input type="checkbox" name="allegedChildAbuse" value="physical" />
-                        Sexual <input type="checkbox" name="allegedChildAbuse" value="sexual" />
-                        Neglect <input type="checkbox" name="allegedChildAbuse" value="neglect" />
-                        Verbal/Psychological/Threats <input type="checkbox" name="allegedChildAbuse" value="verbal" />
-                        Other <input type="checkbox" name="allegedChildAbuse" value="other" /><br /><br />
+                        Physical <input type="checkbox" name="allegedChildAbuse[]" value="physical" />
+                        Sexual <input type="checkbox" name="allegedChildAbuse[]" value="sexual" />
+                        Neglect <input type="checkbox" name="allegedChildAbuse[]" value="neglect" />
+                        Verbal/Psychological/Threats <input type="checkbox" name="allegedChildAbuse[]" value="verbal" />
+                        Other <input type="checkbox" name="allegedChildAbuse[]" value="other" /><br /><br />
                         
                         What was the age of the alleged victim(s)?
                         0-4 <input type="radio" name="victimAge" value="0-4" />
@@ -607,12 +634,12 @@ require('includes/header.php');
                         Yes <input type="radio" name="childContactWithAbuser" value="yes" />
                         No <input type="radio" name="childContactWithAbuser" value="no" /><br />
                         If yes, what were the conditions of the contact?<br />
-                        Unsupervised contact <input type="checkbox" name="contactConditions" value="unsupervised" /><br />
-                        Contact supervised by professional <input type="checkbox" name="contactConditions" value="professional" /><br />
-                        Contact supervised by non-professional neutral person <input type="checkbox" name="contactConditions" value="neutral" /><br />
-                        Contact supervised by family member/friend <input type="checkbox" name="contactConditions" value="familyMember" /><br />
-                        Parent/child therapy <input type="checkbox" name="contactConditions" value="therapy" /><br />
-                        Other <input type="checkbox" name="contactConditions" value="other" /><br /><br />
+                        Unsupervised contact <input type="checkbox" name="contactConditions[]" value="unsupervised" /><br />
+                        Contact supervised by professional <input type="checkbox" name="contactConditions[]" value="professional" /><br />
+                        Contact supervised by non-professional neutral person <input type="checkbox" name="contactConditions[]" value="neutral" /><br />
+                        Contact supervised by family member/friend <input type="checkbox" name="contactConditions[]" value="familyMember" /><br />
+                        Parent/child therapy <input type="checkbox" name="contactConditions[]" value="therapy" /><br />
+                        Other <input type="checkbox" name="contactConditions[]" value="other" /><br /><br />
                         
                         Did the party who raised the allegation request an order protecting the child(ren)?
                         Yes <input type="radio" name="requestOrder" value="yes" />
@@ -703,29 +730,29 @@ require('includes/header.php');
                             Yes <input type="radio" name="childUnderOath" value="yes" />
                             No <input type="radio" name="childUnderOath" value="no" /><br />
                             Who questioned the child?<br />
-                            Judge <input type="checkbox" name="whoQuestionedChild" value="judge" />
-                            Child's Attorney <input type="checkbox" name="whoQuestionedChild" value="attorney" />
-                            Petitioner/Attorney <input type="checkbox" name="whoQuestionedChild" value="petitioner" />
-                            Respondent/Attorney <input type="checkbox" name="whoQuestionedChild" value="respondent" />
-                            Other <input type="checkbox" name="whoQuestionedChild" value="other" /><br />
+                            Judge <input type="checkbox" name="whoQuestionedChild[]" value="judge" />
+                            Child's Attorney <input type="checkbox" name="whoQuestionedChild[]" value="attorney" />
+                            Petitioner/Attorney <input type="checkbox" name="whoQuestionedChild[]" value="petitioner" />
+                            Respondent/Attorney <input type="checkbox" name="whoQuestionedChild[]" value="respondent" />
+                            Other <input type="checkbox" name="whoQuestionedChild[]" value="other" /><br />
                             Was either party denied the opportunity to question the child?
                             Yes <input type="radio" name="deniedOpportunity" value="yes" />
                             No <input type="radio" name="deniedOpportunity" value="no" /><br />
                             If yes, who was prevented from questioning the child?
-                            Petitioner <input type="checkbox" name="preventedFromQuestioning" value="petitioner" />
-                            Respondent <input type="checkbox" name="preventedFromQuestioning" value="respondent" /><br />
+                            Petitioner <input type="checkbox" name="preventedFromQuestioning[]" value="petitioner" />
+                            Respondent <input type="checkbox" name="preventedFromQuestioning[]" value="respondent" /><br />
                             How did the child react to the examination? <input type="text" name="childReactionWitnessStand" /><br /><br />
                         Questioned in chambers <input type="radio" name="examinationConducted" value="chambers" /><br /><br />
                             Did any party object to the child being questioned in chambers?
                             Yes <input type="radio" name="objectToChamberQuestioning" value="yes" />
                             No <input type="radio" name="objectToChamberQuestioning" value="no" /><br />
                             Who went into chambers for the questioning?<br />
-                            Petitioner <input type="checkbox" name="questioning" value="petitioner" /><br />
-                            Petitioner's Attorney <input type="checkbox" name="questioning" value="petitionerAttorney" /><br />
-                            Respondent <input type="checkbox" name="questioning" value="respondent" /><br />
-                            Respondent's Attorney <input type="checkbox" name="questioning" value="respondentAttorney" /><br />
-                            Child's Attorney <input type="checkbox" name="questioning" value="childAttorney" /><br />
-                            Court Reporter <input type="checkbox" name="questioning" value="courtReporter" /><br />
+                            Petitioner <input type="checkbox" name="questioning[]" value="petitioner" /><br />
+                            Petitioner's Attorney <input type="checkbox" name="questioning[]" value="petitionerAttorney" /><br />
+                            Respondent <input type="checkbox" name="questioning[]" value="respondent" /><br />
+                            Respondent's Attorney <input type="checkbox" name="questioning[]" value="respondentAttorney" /><br />
+                            Child's Attorney <input type="checkbox" name="questioning[]" value="childAttorney" /><br />
+                            Court Reporter <input type="checkbox" name="questioning[]" value="courtReporter" /><br />
                             If a court reporter was present for the in-chambers questioning, did the court make an order 
                             preventing the parties from accessing a record of the examination?
                             Yes <input type="radio" name="accessRecord" value="yes" />
@@ -741,17 +768,17 @@ require('includes/header.php');
                             Yes <input type="radio" name="childUnderOathRemoteAccess" value="yes" />
                             No <input type="radio" name="childUnderOathRemoteAccess" value="no" /><br />
                             Who questioned the child?<br />
-                            Judge <input type="checkbox" name="whoQuestionedChildRemoteAccess" value="judge" />
-                            Child's Attorney <input type="checkbox" name="whoQuestionedChildRemoteAccess" value="childAttorney" />
-                            Petitioner/Attorney <input type="checkbox" name="whoQuestionedChildRemoteAccess" value="petitioner" />
-                            Respondent/Attorney <input type="checkbox" name="whoQuestionedChildRemoteAccess" value="respondent" />
-                            Other <input type="checkbox" name="whoQuestionedChildRemoteAccess" value="other" /><br />
+                            Judge <input type="checkbox" name="whoQuestionedChildRemoteAccess[]" value="judge" />
+                            Child's Attorney <input type="checkbox" name="whoQuestionedChildRemoteAccess[]" value="childAttorney" />
+                            Petitioner/Attorney <input type="checkbox" name="whoQuestionedChildRemoteAccess[]" value="petitioner" />
+                            Respondent/Attorney <input type="checkbox" name="whoQuestionedChildRemoteAccess[]" value="respondent" />
+                            Other <input type="checkbox" name="whoQuestionedChildRemoteAccess[]" value="other" /><br />
                             Was either party denied the opportunity to question the child?
                             Yes <input type="radio" name="deniedQuestioning" value="yes" />
                             No <input type="radio" name="deniedQuestioning" value="no" /><br />
                             If yes, who was prevented from questioning the child?
-                            Petitioner <input type="checkbox" name="prevented" value="petitioner" />
-                            Respondent <input type="checkbox" name="prevented" value="respondent" /><br /><br />
+                            Petitioner <input type="checkbox" name="prevented[]" value="petitioner" />
+                            Respondent <input type="checkbox" name="prevented[]" value="respondent" /><br /><br />
                             
                             How did the child react to the examination?
                             <input type="text" name="childReactionRemoteAccess" />
@@ -761,13 +788,18 @@ require('includes/header.php');
             
 
      		</div>
+            <input id="fillForm" type="button" value="fill" />
             <input type="submit" value="submit" />
     	</form>
     </script>
 
-<?php
-require('includes/scripts.php');
-?>
+    <script type="text/javascript" src="js/libs/jquery.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/libs/underscore.js"></script>
+    <script type="text/javascript" src="js/libs/backbone.js"></script>
+    <script type="text/javascript" src="js/libs/backbone.js"></script>
+    <script type="text/javascript" src="js/libs/marionette.js"></script>
+    <script type="text/javascript" src="js/logout.js"></script>
 
 	<script type="text/javascript" src="js/views/forms.js"></script>
 

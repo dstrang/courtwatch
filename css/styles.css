@@ -51,7 +51,12 @@ body {
   border-bottom: solid 2px #999;
 }
 
-#top-bar, #container {
+#top-bar > div {
+  width:1280px;
+  margin: 0 auto;
+}
+
+#container {
   width: 1280px;
   margin: 0 auto;
 }
@@ -63,6 +68,10 @@ body {
     margin: 15px;
     font-style: italic;
     color: #666;
+}
+
+#top-bar img {
+  margin:0 10px;
 }
 
 #top-bar span {
@@ -211,4 +220,28 @@ body {
 
 .foobar {
   padding-right: 50px;
+}
+
+.admin-panel {
+  width:250px;
+  margin: 0 auto;
+  margin-top: 50px
+}
+
+.formButton {
+  width: 500px;
+    margin: 10px auto;
+}
+
+#graph {
+  margin-top: 40px;
+}
+
+#graphList {
+  margin-top: 50px;
+}
+
+.graphButton {
+  width:500px;
+    margin-top:20px;
 }

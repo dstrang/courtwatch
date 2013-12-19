@@ -26,6 +26,7 @@ if(!isset($_SESSION['user'])){
     <!-- Custom styles for this template -->
     <link href="css/form.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
+    <link href="css/jquery.jqplot.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -35,5 +36,7 @@ if(!isset($_SESSION['user'])){
   </head>
     <body>
         <div id="top-bar">
-            <p><?php echo $_SESSION['user']['userID'];  ?> |<span>Log Out</span></p>
+            <div>
+                <p><a href="/courtwatch"><img src="img/home_icon.png"></a><?php echo $_SESSION['user']['userID'];  ?> |<span>Log Out</span></p>
+            </div>
         </div>

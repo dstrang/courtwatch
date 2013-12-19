@@ -17,6 +17,7 @@ var VolunteerView = Backbone.Marionette.ItemView.extend({
 	},
 	events: {
 		'click #newVolunteerForm .btn': 'addNewVolunteer',
+		'click #updatePassword .btn': 'updatePassword',
 		'click #volunteerAccordion :checkbox': 'promote'
 	},
 	addNewVolunteer: function(event){
@@ -25,34 +26,57 @@ var VolunteerView = Backbone.Marionette.ItemView.extend({
 		var formValues = {
 			username: $('#username').val()
 		};
-		if(!$.trim(formValues.username)){
-			alert("must provide user ID");
-		}else{
-			var view = this;
-			$.ajax({
-				url:url,
-				type:'POST',
-				dataType: 'json',
-				data:formValues,
-				success:function(data){
-					if(data.error){
-						$('.login-error').text(data.error.text).show();
+		var view = this;
+		$.ajax({
+			url:url,
+			type:'POST',
+			dataType: 'json',
+			data:formValues,
+			success:function(data){
+				if(data.error){
+					$('.new-error').text(data.error.text).show();
+				}else{
+					if(typeof appVolunteers != "undefined"){
+						appVolunteers.add(data);
 					}else{
-						if(typeof appVolunteers != "undefined"){
-							appVolunteers.add(data);
-						}else{
-							appVolunteers = new Collection(data);
-							view.showAccordion();
-						}
-						$('.login-error').fadeOut();
-						$('#volunteerAccordion').accordion('refresh');
+						appVolunteers = new Collection(data);
+						view.showAccordion();
 					}
-				},
-				error:function(data){
-					console.log(data);
+					$('.new-error').fadeOut();
+					$('#volunteerAccordion').accordion('refresh');
 				}
-			});
-		}	
+			},
+			error:function(data){
+				console.log(data);
+			}
+		});	
+	},
+	updatePassword: function(event){
+		event.preventDefault();
+		var url = 'api/updatePassword';
+		var formValues = {
+			currentPassword: $("#currentPassword").val(),
+			newPassword: $("#newPassword").val(),
+			newPasswordConfirm: $("#newPasswordConfirm").val()
+		};
+		var view = this;
+		$.ajax({
+			url:url,
+			type:'POST',
+			dataType: 'json',
+			data:formValues,
+			success:function(data){
+				if(data.error){
+					$('.pass-error').text(data.error.text).show();
+				}else{
+					alert("Password was successfully changed.");
+					$('.pass-error').fadeOut();
+				}
+			},
+			error:function(data){
+				console.log(data);
+			}
+		});	
 	},
 	promote: function(event){
 		var user = {

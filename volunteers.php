@@ -2,20 +2,30 @@
 require('includes/header.php');
 ?>
         <div id="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <form id="newVolunteerForm" class="form-signin">
+            <div class="col-md-6">
+                <div class="row">
+                    <form id="newVolunteerForm" class="admin-panel">
                         <h2 class="form-signin-heading">Add Volunteer</h2>
                         <input type="text" id="username" class="form-control" placeholder="User ID">
-                        <button class="btn btn-lg btn-primary btn-block">Add User</button>
-                        <div class="login-error" style="display:none;"></div>
+                        <button class="btn btn-lg btn-primary btn-block">Add</button>
+                        <div class="login-error new-error" style="display:none;"></div>
                     </form>
                 </div>
-                <div class="col-md-8">
-                    <h2 class="form-signin-heading">Volunteers</h2>
-                    <div id="volunteerList">
-                        <p>No Volunteers</p>
-                    </div>
+                <div class="row">
+                    <form id="updatePassword" class="admin-panel">
+                        <h2 class="form-signin-heading">Change Password</h2>
+                        <input type="password" id="currentPassword" class="form-control" placeholder="Current Password">
+                        <input type="password" id="newPassword" class="form-control" placeholder="New Password">
+                        <input type="password" id="newPasswordConfirm" class="form-control" placeholder="Retype New Password">
+                        <button class="btn btn-lg btn-primary btn-block">Update</button>
+                        <div class="login-error pass-error" style="display:none;"></div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h2 class="form-signin-heading">Volunteers</h2>
+                <div id="volunteerList">
+                    <p>No Volunteers</p>
                 </div>
             </div>
         </div>

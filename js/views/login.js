@@ -29,7 +29,7 @@
 // });
 
 $(function(){
-	$('#loginForm').click(function(event){
+	$('#loginForm .btn').click(function(event){
 		event.preventDefault();
 		$('.login-error').hide();
 		var url = 'api/login';

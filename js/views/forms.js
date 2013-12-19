@@ -7,7 +7,7 @@ var FormView = Backbone.Marionette.ItemView.extend({
 		$("#formAccordion").accordion({
 			collapsible: true,
     		heightStyle: 'content',
-    		active: 1,
+    		active: false,
     		animate: 'easeOutExpo'
    		 });
 		$('#datePicker').datepicker();
@@ -16,7 +16,8 @@ var FormView = Backbone.Marionette.ItemView.extend({
 		'click .next' : 'nextPage',
 		'click .close' : 'closePage',
 		'click .more' : 'showHidden',
-		'click #fillForm' : 'fillForm'
+		'click #fillForm' : 'fillForm',
+		'click #submitForm' : 'submitForm'
 	},
 	nextPage: function(){
 		var form = $("#formAccordion");
@@ -29,10 +30,32 @@ var FormView = Backbone.Marionette.ItemView.extend({
 	showHidden: function(event){
 		$(event.currentTarget).closest('.hidden').removeClass('hidden');
 	},
-	fillForm: function(){
+	fillForm: function(event){
+		event.preventDefault();
 		$(':text').val("test");
 		$(':radio').prop("checked", true);
 		$(':checkbox').prop("checked", true);
+	},
+	submitForm: function(event){
+		event.preventDefault();
+		var values = $("form").serialize();
+		var url = 'api/insertNewForm';
+		$.ajax({
+			url:url,
+			type:'POST',
+			dataType: 'json',
+			data:values,
+			success:function(data){
+				if(data.error){
+					$('.insert-error').text(data.error.text).show();
+				}else{
+					console.log(data);
+				}
+			},
+			error:function(data){
+				console.log(data);
+			}
+		});	
 	}
 });
 

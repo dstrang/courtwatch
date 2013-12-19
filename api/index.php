@@ -9,18 +9,40 @@ $app = new \Slim\Slim();
 
 $app->post('/login', 'login');
 $app->post('/addNewVolunteer', 'addNewVolunteer');
+$app->post('/updatePassword', 'updatePassword');
 $app->post('/updateProfile', 'updateProfile');
 $app->post('/promoteVolunteer', 'promoteVolunteer');
+$app->post('/insertNewForm', 'insertNewForm');
 $app->get('/loggedIn', 'loggedIn');
 $app->get('/getVolunteers', 'getVolunteers');
 $app->get('/getProfile', 'getProfile');
 $app->get('/logout', 'logout');
+$app->get('/getGenderBreakdown', 'getGenderBreakdown');
 
 $app->run();
 
 function logout(){
 	session_destroy();
 	echo json_encode("logged out");
+}
+
+function getGenderBreakdown(){
+	$sql = "SELECT count(*) AS male FROM form_data WHERE judgeGender = 'male'";
+	$sql2 = "SELECT count(*) AS female FROM form_data WHERE judgeGender = 'female'";
+
+	$pdo = new PDO("mysql:host=localhost;dbname=court_watch", "root", "root");
+	$stmt = $pdo->prepare($sql);
+	$stmt->execute();
+	$row = $stmt->fetch(PDO::FETCH_ASSOC);
+	$male = $row['male'];
+
+	$stmt = $pdo->prepare($sql2);
+	$stmt->execute();
+	$row = $stmt->fetch(PDO::FETCH_ASSOC);
+	$female = $row['female'];
+
+	$data = array('male' => $male, 'female' => $female);
+	echo json_encode($data);
 }
 
 function updateProfile(){
@@ -70,6 +92,22 @@ function promoteVolunteer(){
 		$error = array("error"=> array("text"=>$e->getMessage()));
         echo json_encode($error);
 	}
+}
+
+function insertNewForm(){
+	$keys = implode(",",array_keys($_POST));
+    $values = "'".implode("','",array_values($_POST))."'";
+    $sql = "INSERT INTO form_data (".$keys.") VALUES (".$values.")";
+    $pdo = new PDO("mysql:host=localhost;dbname=court_watch", "root", "root");
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    if($stmt){
+        $error = array("error"=> array("text"=>"Form was successfully inserted."));
+        echo json_encode($error);
+    }else{
+        $error = array("error"=> array("text"=>"Error inserting into database."));
+        echo json_encode($error);
+    }
 }
 
 function login(){
@@ -136,6 +174,47 @@ function addNewVolunteer(){
 	}
 }
 
+function updatePassword(){
+	if(!empty($_POST['currentPassword']) && !empty($_POST['newPassword']) && !empty($_POST['newPasswordConfirm'])){
+		$sql = "SELECT password FROM users WHERE role = 'volunteer' LIMIT 1";
+		try{
+			$pdo = new PDO("mysql:host=localhost;dbname=court_watch", "root", "root");
+			$stmt = $pdo->prepare($sql);
+			$stmt->execute();
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+			$bcrypt = new Bcrypt(4);
+			if($bcrypt->verify($_POST['currentPassword'], $row['password'])){
+				if($_POST['newPassword'] == $_POST['newPasswordConfirm']){
+					$bcrypt = new Bcrypt(4);
+					$hash = $bcrypt->hash($_POST['newPassword']);
+					$sql = "UPDATE users SET password = '$hash' WHERE role = 'volunteer'";
+					$stmt = $pdo->prepare($sql);
+					$stmt->execute();
+					if($stmt->rowCount() > 0){
+						$error = array("error"=> array("text"=>"Password was successfully updated."));
+	        			echo json_encode($error);
+					}else{
+						$error = array("error"=> array("text"=>"Error with database."));
+	        			echo json_encode($error);
+					}
+				}else{
+					$error = array("error"=> array("text"=>"New password does not match."));
+	       			echo json_encode($error);
+				}
+			}else{
+				$error = array("error"=> array("text"=>"Current password is incorrect."));
+	        	echo json_encode($error);
+			}			
+		}catch(PDOExecption $e){
+			$error = array("error"=> array("text"=>$e->getMessage()));
+	        echo json_encode($error);
+		}
+	}else{
+		$error = array("error"=> array("text"=>"All fields are required."));
+		echo json_encode($error);
+	}
+}
+
 function loggedIn(){
 	if(isset($_SESSION['user'])){
 		$data = array("username"=>$_SESSION['user']['userID'], "role"=>$_SESSION['user']['role'], "phone"=>$_SESSION['user']['phone'], "email"=>$_SESSION['user']['email']);
@@ -146,7 +225,7 @@ function loggedIn(){
 }
 
 function getVolunteers(){
-	$sql = "SELECT username, role, email, phone, name FROM users WHERE username != '".$_SESSION['user']['userID']."'";
+	$sql = "SELECT username, role, email, phone, name FROM users WHERE username != '".$_SESSION['user']['userID']."' AND username != 'admin'";
 	try{
 		$pdo = new PDO("mysql:host=localhost;dbname=court_watch", "root", "root");
 		$stmt = $pdo->prepare($sql);
